@@ -11,10 +11,37 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    semi: ['error', 'always'],
+    'generator-star-spacing': 'off',
+    'prefer-promise-reject-errors': 'off',
+    'max-len': [2, 180, 2],
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-indent': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/order-in-components': 2,
+    'vue/this-in-template': [2, 'never'],
+    'prefer-const': 2,
+    'comma-dangle': ['error', 'always-multiline'],
+    'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
+    'vue/html-closing-bracket-newline': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/no-unused-vars': 'off',
+    'vue/no-template-shadow': 'off',
+    'vue/no-unused-components': 'off',
+    'template-curly-spacing': 'off',
+    indent: [
+      'error',
+      2,
+      {
+        ignoredNodes: ['TemplateLiteral'],
+      },
+    ],
+    'standard/no-callback-literal': 'off',
     'prettier/prettier': [
       'error',
       {
-        semi: false,
+        semi: true,
         useTabs: false,
         tabWidth: 2,
         singleQuote: true,
@@ -29,4 +56,4 @@ module.exports = {
       },
     ],
   },
-}
+};
