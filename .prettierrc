@@ -3,12 +3,15 @@
   "useTabs": false,
   "tabWidth": 2,
   "singleQuote": true,
-  "arrowParens": "always",
+  "quoteProps": "as-needed",
+  "arrowParens": "avoid",
   "trailingComma": "all",
   "bracketSpacing": true,
   "eslintIntegration": true,
   "jsxBracketSameLine": false,
   "htmlWhitespaceSensitivity": "ignore",
   "printWidth": 180,
-  "proseWrap": "preserve"
+  "proseWrap": "preserve",
+  "vueIndentScriptAndStyle": false,
+  "embeddedLanguageFormatting": "auto"
 }
