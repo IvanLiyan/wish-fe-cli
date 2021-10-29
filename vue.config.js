@@ -87,6 +87,9 @@ module.exports = {
           minRatio: 0.8,
         }),
       );
+    } else {
+      // chrome 显示源码方便dubug
+      config.devtool = 'source-map';
     }
     config.plugins = [...config.plugins, ...plugins];
   },
