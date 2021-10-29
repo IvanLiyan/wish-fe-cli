@@ -63,10 +63,27 @@
 </template>
 
 <script>
+import Api from '@utils/api';
 export default {
   name: 'HelloWorld',
   props: {
     msg: String,
+  },
+  async mounted() {
+    // 接口调用示例
+    try {
+      const { data } = await Api.getList();
+      console.log('getList.data', data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      const { data } = await Api.getObject({ id: 1 });
+      console.log('getObject.data', data);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>

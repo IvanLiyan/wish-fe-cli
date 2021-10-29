@@ -1,0 +1,7 @@
+// Normalize修复各浏览器自身的bug并保证各浏览器的一致性
+@import './normalize.scss';
+
+// 设置全局默认样式
+body {
+  font-size: 14px;
+}
