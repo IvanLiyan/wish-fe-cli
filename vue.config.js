@@ -89,7 +89,7 @@ module.exports = {
       );
     } else {
       // chrome 显示源码方便dubug
-      config.devtool = 'source-map';
+      config.devtool = 'eval-source-map';
     }
     config.plugins = [...config.plugins, ...plugins];
   },
