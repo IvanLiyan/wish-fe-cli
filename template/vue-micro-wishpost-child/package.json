@@ -1,0 +1,44 @@
+{
+  "name": "user-setting",
+  "parentName": "user",
+  "version": "0.1.0",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --report"
+  },
+  "dependencies": {
+    "@mdi/font": "^4.5.95",
+    "@mdi/js": "^4.5.95",
+    "@wish/fe-utils": "0.0.1-beta.2",
+    "material-design-icons-iconfont": "^4.0.5",
+    "vue": "2.6.13",
+    "vue-i18n": "^8.3.2",
+    "vue-moment": "^4.0.0",
+    "vue-router": "3.5.1",
+    "vuetify": "2.3.10",
+    "vuetify-confirm": "2.0.2"
+  },
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "vuex": "3.5.1",
+    "@vue/cli-service": "^4.1.0",
+    "deepmerge": "4.2.2",
+    "sass": "1.32.6",
+    "sass-loader": "7.3.1",
+    "vue-template-compiler": "2.6.13",
+    "vuetify-loader": "^1.6.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devPort": "5003",
+  "license": "MIT",
+  "wishSubModule": true
+}
