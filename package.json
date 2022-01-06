@@ -33,7 +33,6 @@
     "commander": "^8.3.0",
     "del": "^6.0.0",
     "download-git-repo": "^3.0.2",
-    "events": "^3.3.0",
     "inquirer": "^8.2.0",
     "ora": "^5.4.0",
     "shelljs": "^0.8.4"
