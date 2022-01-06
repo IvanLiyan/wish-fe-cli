@@ -22,7 +22,6 @@ const actions = {
 
 // 遍历actions配置命令
 Object.keys(actions).forEach((key) => {
-  console.log("key====", key);
   program
     .command(key) // 定义命令字段
     .alias(actions[key].alias) // 定义别名delete => del
