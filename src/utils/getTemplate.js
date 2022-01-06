@@ -1,7 +1,22 @@
-import shell from "shell";
-import ora from "ora";
-import axios from "axios";
-import downloadRepo from "download-git-repo";
+// import ora from "ora";
+// import shell from "shell";
+// import downloadRepo from "download-git-repo";
+// import inquirer from "inquirer";
+
+const shell = require("shell");
+const path = require("path");
+const ora = require("ora");
+const downloadRepo = require("download-git-repo");
+const inquirer = require("inquirer");
+
+// const {
+//     chalk,
+//     execa,
+
+//     log,
+//     warn,
+//     error,
+//   } = require('@vue/cli-shared-utils')
 
 // ......添加获取仓库及tag逻辑
 // 定义github api请求路径
@@ -41,9 +56,7 @@ let spinner = null;
 
 module.exports = async (projectName) => {
   // 创建目录 如果存在提示用户是否覆盖
-  const dir = await existDir(projectName);
-
-  console.log("dir", dir);
+  //   const dir = await existDir(projectName);
 
   // 拉去github templete 选择指定的tag和仓库
   //   const repos = await getReposList();
@@ -64,13 +77,13 @@ module.exports = async (projectName) => {
   //   const tags = await getReposTags(repo);
   // 让用户选择使用哪一个版本的tag
 
-  const templates = ["vue-micro-wishpost-child"];
+  const templates = ["vue-micro-wishpost-child", "vue-web"];
 
   const { template } = await inquirer.prompt([
     {
-      name: "tag",
+      name: "template",
       type: "list",
-      message: "choose a tag",
+      message: "choose a template",
       choices: templates,
     },
   ]);
@@ -84,8 +97,7 @@ module.exports = async (projectName) => {
   // 下载模板并安装对应的依赖
 
   // 加载中的交互提示
-  spinner.text = "download template...";
-  spinner.start();
+  spinner = ora("download template...").start();
   // 要下载到的目录，这里我们以/temp目录为例
   const destinationDir = path.resolve(dir, "./temp");
   console.log("destinationDir", destinationDir);
