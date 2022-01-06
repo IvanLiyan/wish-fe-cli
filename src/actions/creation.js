@@ -49,7 +49,7 @@ const existDir = async (projectName) => {
     fs.mkdirSync(newDir);
     return newDir;
   } else {
-    warning("\ncreate dir has been canceled");
+    warning("! create dir has been canceled");
 
     // 以退出状态 1 指示 Node.js 同步地终止进程
     process.exit(1);
@@ -80,10 +80,10 @@ const install = async (dir, projectName) => {
     child.stdout.on("close", function (data) {
       spinner.text = "Install dependences success";
       spinner.succeed();
-      success(`Successfully created project ${projectName}`);
+      success(`\nSuccessfully created project ${projectName}`);
     });
   } else {
-    success(`Successfully created project ${projectName}`);
+    success(`\nSuccessfully created project ${projectName}`);
   }
 };
 

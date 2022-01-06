@@ -4,8 +4,8 @@ const { program } = require("commander");
 // 定义命令参数对象
 const actions = {
   // create命令
-  create: {
-    alias: "ct",
+  creation: {
+    alias: "create",
     desc: "create a project",
   },
   // 删除命令
