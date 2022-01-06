@@ -1,12 +1,11 @@
 {
   "name": "@wish/fe-cli",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.4",
   "description": "init front-end project、vue、eslint、webpack",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
-  "private": true,
   "scripts": {
     "dev": "vue-cli-service serve --mode dev",
     "build": "vue-cli-service build --mode prod",

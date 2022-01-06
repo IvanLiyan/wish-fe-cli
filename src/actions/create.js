@@ -63,18 +63,18 @@ const downloadTemplate = async (dir, projectName) => {
   ]);
   console.log("select-template", template);
 
-  const { stdout } = await execa(
-    "npm",
-    [
-      "--registry=http://npm.bjs.i.wish.com",
-      "--cache=$HOME/.npm",
-      "--userconfig=$HOME/.npmrc",
-      "whoami",
-    ],
-    { shell: true }
-  );
+  //   const { stdout } = await execa(
+  //     "npm",
+  //     [
+  //       "--registry=http://npm.bjs.i.wish.com",
+  //       "--cache=$HOME/.npm",
+  //       "--userconfig=$HOME/.npmrc",
+  //       "whoami",
+  //     ],
+  //     { shell: true }
+  //   );
 
-  console.log("stdout", stdout);
+  //   console.log("stdout", stdout);
 
   // 下载模板
   let downUrl = `ContextLogic/wish-fe-template#${template}`;
