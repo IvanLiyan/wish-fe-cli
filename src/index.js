@@ -31,7 +31,7 @@ Object.keys(actions).forEach((key) => {
       if (key === "*") {
         console.log(actions[key].desc);
       } else {
-        // 向create.js和delete.js传递参数
+        // creation.js和delete.js传递参数
         require(path.resolve(__dirname, `./actions/${key}`))(
           // 对应actions文件夹下的名称
           process.argv.slice(3)
