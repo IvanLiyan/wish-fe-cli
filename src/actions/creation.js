@@ -5,8 +5,6 @@ const chalk = require("chalk");
 const del = require("del");
 const ora = require("ora");
 const inquirer = require("inquirer");
-var EventEmitter = require("events");
-
 const downloadRepo = require("download-git-repo");
 const step = (msg) => console.log(chalk.cyan(msg));
 const success = (msg) => console.log(chalk.green(msg));
@@ -62,6 +60,7 @@ const existDir = async (projectName) => {
  */
 const install = async (dir, projectName) => {
   const destinationDir = path.resolve(dir);
+  console.log("destinationDir", destinationDir);
   // 是否安装依赖
   const { install } = await inquirer.prompt([
     {
@@ -76,7 +75,6 @@ const install = async (dir, projectName) => {
     shell.cd(destinationDir);
     // 安装依赖
     var child = shell.exec("npm install", { async: true });
-
     child.stdout.on("close", function (data) {
       spinner.text = "Install dependences success";
       spinner.succeed();
@@ -93,7 +91,6 @@ const install = async (dir, projectName) => {
  */
 const downloadTemplate = async (dir, projectName) => {
   const templates = ["vue-micro-wishpost-child", "vue-web"];
-
   const { template } = await inquirer.prompt([
     {
       name: "template",
@@ -102,40 +99,48 @@ const downloadTemplate = async (dir, projectName) => {
       choices: templates,
     },
   ]);
-
   step(`\nSelect-template: ${template}`);
-
   // 下载模板并安装对应的依赖
   let downUrl = `ContextLogic/wish-fe-template#${template}`;
-
   // 加载中的交互提示
   spinner = ora("Initial project...").start();
   // 要下载到的目录，这里我们以/temp目录为例
   const destinationDir = path.resolve(dir);
-
-  // 执行下载模板
-  downloadRepo(
-    downUrl,
-    destinationDir,
-    {
-      clone: true,
-    },
-    (err) => {
-      if (err) {
-        error(`\nDownload template error:`);
-        console.log(err);
-        process.exit(1);
-      } else {
-        spinner.text = "Download template success~";
-        spinner.succeed();
-        install(dir, projectName);
+  await new Promise(function (resolve) {
+    // 执行下载模板
+    downloadRepo(
+      downUrl,
+      destinationDir,
+      {
+        clone: true,
+      },
+      (err) => {
+        if (err) {
+          error(`\nDownload template error:`);
+          process.exit(1);
+        } else {
+          spinner.text = "Download template success~";
+          spinner.succeed();
+          resolve();
+        }
       }
-    }
-  );
+    );
+  });
 };
+
+function updateName(dir, projectName) {
+  // 获取全路径
+  const pkgPath = path.resolve(dir, `./package.json`);
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+  pkg.name = projectName && projectName[0];
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+}
 
 module.exports = async (projectName) => {
   // 创建目录 如果存在提示用户是否覆盖
   const dir = await existDir(projectName);
   await downloadTemplate(dir, projectName);
+  install(dir, projectName);
+  // 更新package name 为projectName
+  updateName(dir, projectName);
 };

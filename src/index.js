@@ -13,6 +13,11 @@ const actions = {
     alias: "del",
     desc: "delete a file form path",
   },
+  // 提示命令
+  help: {
+    alias: "del",
+    desc: "delete a file form path",
+  },
   // 其他的命令处理
   "*": {
     alias: "",
