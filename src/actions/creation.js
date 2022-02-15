@@ -60,13 +60,13 @@ const existDir = async (projectName) => {
  */
 const install = async (dir, projectName) => {
   const destinationDir = path.resolve(dir);
-  console.log("destinationDir", destinationDir);
+
   // 是否安装依赖
   const { install } = await inquirer.prompt([
     {
       name: "install",
       type: "confirm",
-      message: "Do you want auto install porject dependences ", // 提示语
+      message: "Auto install porject's dependences ", // 提示语
       default: true, // 默认值
     },
   ]);
@@ -128,11 +128,25 @@ const downloadTemplate = async (dir, projectName) => {
   });
 };
 
-function updateName(dir, projectName) {
+async function updateName(dir) {
   // 获取全路径
   const pkgPath = path.resolve(dir, `./package.json`);
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
-  pkg.name = projectName && projectName[0];
+  const { parent, child } = await inquirer.prompt([
+    {
+      name: "parent",
+      type: "input",
+      message: "Please enter micro project's parent name",
+    },
+    {
+      name: "child",
+      type: "input",
+      message: "Please enter micro project's child name",
+    },
+  ]);
+  pkg.name = child;
+  pkg.parentName = parent;
+
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 }
 
@@ -140,7 +154,7 @@ module.exports = async (projectName) => {
   // 创建目录 如果存在提示用户是否覆盖
   const dir = await existDir(projectName);
   await downloadTemplate(dir, projectName);
+  // 更新package 的 name
+  await updateName(dir);
   install(dir, projectName);
-  // 更新package name 为projectName
-  updateName(dir, projectName);
 };
