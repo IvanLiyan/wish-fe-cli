@@ -1,6 +1,6 @@
 {
   "name": "@wish/fe-cli",
-  "version": "0.0.1-beta.15",
+  "version": "0.0.2",
   "description": "init front-end project、vue、eslint、webpack",
   "main": "index.js",
   "directories": {
