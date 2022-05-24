@@ -11,6 +11,8 @@ const success = (msg) => console.log(chalk.green(msg));
 const warning = (msg) => console.log(chalk.yellow(msg));
 const error = (msg) => console.log(chalk.red(msg));
 
+const templates = ["vue-web", "vue-micro-wishpost-child"];
+
 /**
  * 判断路径目录是否存在，存在则调用inquirir 交互式命令 提示用户
  * @param {String} projectName 项目名称
@@ -89,8 +91,7 @@ const install = async (dir, projectName) => {
  * 调用inquirir 交互式命令 提示用户选择下载项目模版，并进行模版的下载
  * @param {String} dir 项目路径
  */
-const downloadTemplate = async (dir, projectName) => {
-  const templates = ["vue-micro-wishpost-child", "vue-web"];
+const downloadTemplate = async (dir) => {
   const { template } = await inquirer.prompt([
     {
       name: "template",
@@ -126,35 +127,49 @@ const downloadTemplate = async (dir, projectName) => {
       }
     );
   });
+  return template;
 };
 
-async function updateName(dir) {
+async function updateName(dir,template) {
   // 获取全路径
   const pkgPath = path.resolve(dir, `./package.json`);
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
-  const { parent, child } = await inquirer.prompt([
-    {
-      name: "parent",
-      type: "input",
-      message: "Please enter micro project's parent name",
-    },
-    {
-      name: "child",
-      type: "input",
-      message: "Please enter micro project's child name",
-    },
-  ]);
-  pkg.name = child;
-  pkg.parentName = parent;
-
+  if (template === "vue-micro-wishpost-child") { 
+    const { parent, child } = await inquirer.prompt([
+      {
+        name: "parent",
+        type: "input",
+        message: "Please enter micro project's parent name: ",
+      },
+      {
+        name: "child",
+        type: "input",
+        message: "Please enter micro project's child name:",
+      },
+    ]);
+    pkg.name = child;
+    pkg.parentName = parent;
+  }
+  if (template === "vue-web") {
+    const { name } = await inquirer.prompt([
+      {
+        name: "name",
+        type: "input",
+        message: "Please enter the project's name: ",
+      },
+      
+    ]);
+    pkg.name = name;
+  }
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 }
 
 module.exports = async (projectName) => {
   // 创建目录 如果存在提示用户是否覆盖
   const dir = await existDir(projectName);
-  await downloadTemplate(dir, projectName);
+  const template = await downloadTemplate(dir, projectName);
   // 更新package 的 name
-  await updateName(dir);
+  await updateName(dir,template);
+  // 安装npm依赖
   install(dir, projectName);
 };
