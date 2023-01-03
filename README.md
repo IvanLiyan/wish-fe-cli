@@ -13,7 +13,7 @@ npm i nrm -g
 2、Use nrm add wish's registry wnpm. Switch to wnpm and login in it.
 
 ```
-nrm add wnpm http://npm.bjs.i.wish.com/
+nrm add wnpm https://npm.infra.wish-cn.com
 nrm use wnpm
 nrm login     - please add user if you don't have it.
 ```
