@@ -77,7 +77,7 @@ module.exports = async (projectName) => {
   //   const tags = await getReposTags(repo);
   // 让用户选择使用哪一个版本的tag
 
-  const templates = ["vue-micro-wishpost-child", "vue-web"];
+  const templates = ["vue-micro-wishpost-child", "vue-web", "react-web"];
 
   const { template } = await inquirer.prompt([
     {

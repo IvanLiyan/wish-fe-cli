@@ -11,7 +11,7 @@ const success = (msg) => console.log(chalk.green(msg));
 const warning = (msg) => console.log(chalk.yellow(msg));
 const error = (msg) => console.log(chalk.red(msg));
 
-const templates = ["vue-web", "vue-micro-wishpost-child"];
+const templates = ["vue-web", "react-web", "vue-micro-wishpost-child"];
 
 /**
  * 判断路径目录是否存在，存在则调用inquirir 交互式命令 提示用户
@@ -150,7 +150,7 @@ async function updateName(dir,template) {
     pkg.name = child;
     pkg.parentName = parent;
   }
-  if (template === "vue-web") {
+  if (template === "vue-web" || template === "react-web") {
     const { name } = await inquirer.prompt([
       {
         name: "name",
@@ -170,6 +170,11 @@ module.exports = async (projectName) => {
   const template = await downloadTemplate(dir, projectName);
   // 更新package 的 name
   await updateName(dir,template);
-  // 安装npm依赖
-  install(dir, projectName);
+  if(template === "react-web") {
+    success(`\nSuccessfully created project ${projectName}`);
+  } else {
+    // vue项目选择安装npm依赖
+    install(dir, projectName);
+  }
+
 };
